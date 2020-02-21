@@ -19,7 +19,7 @@ key = ''
 secret = ''
 ```
 
-3. Search for up to `n` images, and optionally `--download`. 
+3. Search for up to `n` images, and optionally `--download`. Downloaded images are saved in `flickr_scraper/images/`.
 ```bash
 $ python3 flickr_scraper.py --search 'honeybees on flowers' --n 10 --download
 

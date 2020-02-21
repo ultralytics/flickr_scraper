@@ -15,8 +15,8 @@ Python 3.7 or later with all of the `pip install -U -r requirements.txt` package
 
 2. Write your API information in flickr_scraper L10-L11:
 ```python
-key = 'a57588a6e339819335d69df7c725fc22'
-secret = '0d4459d81377728f'
+key = ''
+secret = ''
 ```
 
 3. Search for up to `n` images, and optionally `--download`. 

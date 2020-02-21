@@ -21,7 +21,7 @@ secret = ''
 
 3. Search for up to `n` images, and optionally `--download`. 
 ```bash
-$ python3 flickr_scraper.py --search 'bees with flowers' --n 10 --download
+$ python3 flickr_scraper.py --search 'honeybees on flowers' --n 10 --download
 
 0/10 https://live.staticflickr.com/1/393202_ce844e9fd4_o.jpg
 1/10 https://farm8.staticflickr.com/7428/27138770446_6618c10ffb_b.jpg

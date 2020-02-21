@@ -9,7 +9,14 @@ This directory contains Flickr image-scraping software developed by Ultralytics 
 Python 3.7 or later with all of the `pip install -U -r requirements.txt` packages including:
 - `flickrapi`
 
-# Usage
+# Install
+```bash
+git clone https://github.com/ultralytics/flickr_scraper
+cd flickr_scraper
+pip install -U -r requirements.txt
+```
+
+# Use
 
 1. Request a Flickr API key: https://www.flickr.com/services/apps/create/apply
 
@@ -40,7 +47,7 @@ Done.
 
 
 
-# Citation
+# Cite
 
 [![DOI](https://zenodo.org/badge/242235660.svg)](https://zenodo.org/badge/latestdoi/242235660)
 

@@ -13,7 +13,7 @@ Python 3.7 or later with all of the `pip install -U -r requirements.txt` package
 
 1. Request a Flickr API key: https://www.flickr.com/services/apps/create/apply
 
-2. Write your API information in flickr_scraper L9-L10:
+2. Write your API information in `flickr_scraper.py` L9-L10:
 ```python
 key = ''
 secret = ''

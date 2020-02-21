@@ -47,7 +47,7 @@ def get_urls(search='honeybees on flowers', n=10, download=False):
     # import pandas as pd
     # urls = pd.Series(urls)
     # urls.to_csv(search + "_urls.csv")
-    print('Done. ' + ('All images saved to %s' % dir if download else ''))
+    print('Done.' + ('\nAll images saved to %s' % dir if download else ''))
 
 
 if __name__ == '__main__':

@@ -26,7 +26,7 @@ key = ''
 secret = ''
 ```
 
-3. Search for up to `n` images, and optionally `--download`. URLs are printed to screen and downloaded images are saved in `flickr_scraper/images`. Note that image downloads are subject to Flickr rate limits and other limitations. See https://www.flickr.com/services/developer/api/ for full information.
+3. Search for up to `n` images, and optionally `--download`. URLs are printed to screen and downloaded images are saved in `flickr_scraper/images`. Note that image downloads may be subject to Flickr rate limits and other limitations. See https://www.flickr.com/services/developer/api/ for full information.
 
 ```bash
 $ python3 flickr_scraper.py --search 'honeybees on flowers' --n 10 --download

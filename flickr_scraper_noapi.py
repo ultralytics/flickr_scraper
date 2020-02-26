@@ -3,7 +3,7 @@ import urllib.request
 import numpy as np
 
 fp = urllib.request.urlopen(
-    "https://www.flickr.com/search?text=naked&structured=yes&page=2")
+    "https://www.flickr.com/search?text=flowers&structured=yes&page=2")
 
 str = fp.read().decode("utf8")  # print(str)
 fp.close()

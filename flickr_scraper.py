@@ -63,4 +63,4 @@ if __name__ == '__main__':
 
     get_urls(search=opt.search,  # search term
              n=opt.n,  # max number of images
-             download=True)  # download images
+             download=opt.download)  # download images

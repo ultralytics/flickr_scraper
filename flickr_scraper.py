@@ -10,6 +10,11 @@ key = ''  # Flickr API key https://www.flickr.com/services/apps/create/apply
 secret = ''
 
 
+def download_uri(uri, dir='./'):
+    with open(dir + uri.split('/')[-1], 'wb') as f:
+        f.write(requests.get(uri, stream=True).content)
+
+
 def get_urls(search='honeybees on flowers', n=10, download=False):
     flickr = FlickrAPI(key, secret)
     photos = flickr.walk(text=search,  # http://www.flickr.com/services/api/flickr.photos.search.html
@@ -36,8 +41,7 @@ def get_urls(search='honeybees on flowers', n=10, download=False):
 
             # download
             if download:
-                with open(dir + url.split('/')[-1], 'wb') as f:
-                    f.write(requests.get(url, stream=True).content)
+                download_uri(url, dir)
 
             urls.append(url)
             print('%g/%g %s' % (i, n, url))
@@ -59,4 +63,4 @@ if __name__ == '__main__':
 
     get_urls(search=opt.search,  # search term
              n=opt.n,  # max number of images
-             download=opt.download)  # download images
+             download=True)  # download images

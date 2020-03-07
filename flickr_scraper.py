@@ -2,10 +2,10 @@
 
 import argparse
 import os
+import time
 
 import requests
 from flickrapi import FlickrAPI
-import time
 
 key = ''  # Flickr API key https://www.flickr.com/services/apps/create/apply
 secret = ''
@@ -53,7 +53,7 @@ def get_urls(search='honeybees on flowers', n=10, download=False):
     # import pandas as pd
     # urls = pd.Series(urls)
     # urls.to_csv(search + "_urls.csv")
-    print('Done. (%.1fs)' % (time.time() - t)  + ('\nAll images saved to %s' % dir if download else ''))
+    print('Done. (%.1fs)' % (time.time() - t) + ('\nAll images saved to %s' % dir if download else ''))
 
 
 if __name__ == '__main__':

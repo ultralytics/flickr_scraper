@@ -31,17 +31,17 @@ secret = ''
 ```bash
 $ python3 flickr_scraper.py --search 'honeybees on flowers' --n 10 --download
 
-0/10 https://live.staticflickr.com/1/393202_ce844e9fd4_o.jpg
-1/10 https://farm8.staticflickr.com/7428/27138770446_6618c10ffb_b.jpg
-2/10 https://live.staticflickr.com/4571/37795143414_8ccae77768_o.jpg
-3/10 https://live.staticflickr.com/1732/27535176747_78b83536af_o.jpg
-4/10 https://live.staticflickr.com/331/18765122504_ea8c9ea6ce_o.jpg
-5/10 https://live.staticflickr.com/1919/44312457665_6f7b6c2c42_o.jpg
-6/10 https://farm4.staticflickr.com/3597/3359921429_fc86a7519e_b.jpg
-7/10 https://farm9.staticflickr.com/8643/15916201194_063f4b42d4_b.jpg
+0/10 https://live.staticflickr.com/21/38596887_40df118fd9_o.jpg
+1/10 https://live.staticflickr.com/4800/40729137901_5dafdc039f_o.jpg
+2/10 https://farm8.staticflickr.com/7428/27138770446_6618c10ffb_b.jpg
+3/10 https://live.staticflickr.com/925/29647053658_728134f6ca_o.jpg
+4/10 https://live.staticflickr.com/1732/27535176747_78b83536af_o.jpg
+5/10 https://live.staticflickr.com/7850/47160160332_6b0c88e207_o.jpg
+6/10 https://live.staticflickr.com/1919/44312457665_6f7b6c2c42_o.jpg
+7/10 https://live.staticflickr.com/7922/46297818725_21c13a3629_o.jpg
 8/10 https://live.staticflickr.com/8045/29760999676_e71c938283_o.jpg
-9/10 https://farm6.staticflickr.com/5814/22006609284_d36e206712_b.jpg
-Done.
+9/10 https://live.staticflickr.com/1770/43276172331_e779b8c161_o.jpg
+Done. (4.1s)
 All images saved to /Users/glennjocher/PycharmProjects/flickr_scraper/images/honeybees_on_flowers/
 ```
 <img src="https://user-images.githubusercontent.com/26833433/75074332-4792c600-54b0-11ea-8c98-22acf58ba8e7.jpg" width="">

@@ -71,6 +71,6 @@ def scan(files, max_wh=2000, remove=False, multi_thread=True):  # filelist, maxi
 
 
 if __name__ == '__main__':
-    files = sorted(glob.iglob('dermnet/**/*.*', recursive=True))
+    files = sorted(glob.iglob('images/**/*.*', recursive=True))
     assert len(files), 'No files found'
     scan(files, max_wh=2000, remove=True, multi_thread=True)

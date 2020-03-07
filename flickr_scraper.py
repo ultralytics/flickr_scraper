@@ -5,6 +5,7 @@ import os
 
 import requests
 from flickrapi import FlickrAPI
+import time
 
 key = ''  # Flickr API key https://www.flickr.com/services/apps/create/apply
 secret = ''
@@ -16,6 +17,7 @@ def download_uri(uri, dir='./'):
 
 
 def get_urls(search='honeybees on flowers', n=10, download=False):
+    t = time.time()
     flickr = FlickrAPI(key, secret)
     photos = flickr.walk(text=search,  # http://www.flickr.com/services/api/flickr.photos.search.html
                          extras='url_o',
@@ -51,7 +53,7 @@ def get_urls(search='honeybees on flowers', n=10, download=False):
     # import pandas as pd
     # urls = pd.Series(urls)
     # urls.to_csv(search + "_urls.csv")
-    print('Done.' + ('\nAll images saved to %s' % dir if download else ''))
+    print('Done. (%.1fs)' % (time.time() - t)  + ('\nAll images saved to %s' % dir if download else ''))
 
 
 if __name__ == '__main__':

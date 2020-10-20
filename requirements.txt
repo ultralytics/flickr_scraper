@@ -1,4 +1,6 @@
 # pip install -U -r requirements.txt
 
 flickrapi
+numpy
 scikit-image
+tqdm

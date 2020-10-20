@@ -3,7 +3,7 @@ import os
 from multiprocessing.pool import ThreadPool
 
 import numpy as np
-from skimage import io, transform  # conda install -c conda-forge scikit-image
+from PIL import Image
 from tqdm import tqdm
 
 
@@ -19,16 +19,17 @@ def scan(files, max_wh=2000, remove=False, multi_thread=True):  # filelist, maxi
 
         # Downsize
         try:
-            img = io.imread(f)
+            img = Image.open(f)
 
             # Downsize to max_wh if necessary
-            r = max_wh / max(img.shape)  # ratio
+            r = max_wh / max(img.size)  # ratio (width, height = img.size)
             if r < 1:  # resize
                 print('Resizing %s' % f)
-                img = transform.resize(img, (round(img.shape[0] * r), round(img.shape[1] * r)))
-                io.imsave(f, img.astype(np.uint8))
+                img = img.resize((round(x * r) for x in img.size), Image.ANTIALIAS)  # resize(width, height)
+                img.save(f)
 
             # Get hash for duplicate detection
+            img = np.array(img)  # to numpy
             img = np.repeat(img[:, :, None], 3, axis=2) if len(img.shape) == 2 else img  # greyscale to rgb
             img = img[:, :, :3] if img.shape[2] == 4 else img  # rgba to rgb (for pngs)
             hash = list(img.reshape(-1, 3).mean(0)) + list(img.reshape(-1, 3).std(0))  # unique to each image
@@ -71,6 +72,6 @@ def scan(files, max_wh=2000, remove=False, multi_thread=True):  # filelist, maxi
 
 
 if __name__ == '__main__':
-    files = sorted(glob.iglob('images/**/*.*', recursive=True))
+    files = sorted(glob.iglob('../images/*/*.*', recursive=True))
     assert len(files), 'No files found'
     scan(files, max_wh=2000, remove=True, multi_thread=True)

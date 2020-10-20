@@ -13,7 +13,7 @@ secret = ''
 
 def download_uri(uri, dir='./'):
     with open(dir + uri.split('/')[-1], 'wb') as f:
-        f.write(requests.get(uri, stream=True).content)
+        f.write(requests.get(uri, timeout=10).content)
 
 
 def get_urls(search='honeybees on flowers', n=10, download=False):
@@ -21,7 +21,7 @@ def get_urls(search='honeybees on flowers', n=10, download=False):
     flickr = FlickrAPI(key, secret)
     photos = flickr.walk(text=search,  # http://www.flickr.com/services/api/flickr.photos.search.html
                          extras='url_o',
-                         per_page=100,
+                         per_page=100,  # 1-500
                          sort='relevance')
 
     if download:

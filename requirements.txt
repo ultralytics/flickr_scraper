@@ -1,2 +1,3 @@
 # pip install -U -r requirements.txt
 flickrapi
+scikit-image

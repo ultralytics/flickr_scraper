@@ -19,9 +19,11 @@ def download_uri(uri, dir='./'):
 def get_urls(search='honeybees on flowers', n=10, download=False):
     t = time.time()
     flickr = FlickrAPI(key, secret)
+    license = ()  # https://www.flickr.com/services/api/explore/?method=flickr.photos.licenses.getInfo
     photos = flickr.walk(text=search,  # http://www.flickr.com/services/api/flickr.photos.search.html
                          extras='url_o',
-                         per_page=100,  # 1-500
+                         per_page=500,  # 1-500
+                         license=license,
                          sort='relevance')
 
     if download:

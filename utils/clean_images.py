@@ -21,12 +21,18 @@ def scan(files, max_wh=2000, remove=False, multi_thread=True):  # filelist, maxi
         try:
             img = Image.open(f)
 
+            # Checks (from YOLOv5)
+            img.verify()  # PIL verify
+            assert min(img.size) > 9, 'image size <10 pixels'
+
             # Downsize to max_wh if necessary
             r = max_wh / max(img.size)  # ratio (width, height = img.size)
             if r < 1:  # resize
                 print('Resizing %s' % f)
                 img = img.resize((round(x * r) for x in img.size), Image.ANTIALIAS)  # resize(width, height)
-                img.save(f)
+
+            # Resave
+            img.save(f)
 
             # Get hash for duplicate detection
             img = np.array(img)  # to numpy
@@ -36,8 +42,8 @@ def scan(files, max_wh=2000, remove=False, multi_thread=True):  # filelist, maxi
             return [f, hash]
 
         # Remove corrupted
-        except:
-            print('Corrupted image: %s' % f)
+        except Exception as e:
+            print('WARNING: %s: %s' % (f, e))
             os.remove(f) if remove else None
             return None
 
@@ -73,6 +79,6 @@ def scan(files, max_wh=2000, remove=False, multi_thread=True):  # filelist, maxi
 
 
 if __name__ == '__main__':
-    files = sorted(glob.iglob('../images/*/*.*', recursive=True))
+    files = sorted(glob.iglob('../images/**/*.*', recursive=True))
     assert len(files), 'No files found'
     scan(files, max_wh=2000, remove=True, multi_thread=True)

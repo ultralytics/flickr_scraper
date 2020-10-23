@@ -19,10 +19,9 @@ def scan(files, max_wh=2000, remove=False, multi_thread=True):  # filelist, maxi
 
         # Downsize
         try:
-            img = Image.open(f)
-
             # Checks (from YOLOv5)
-            img.verify()  # PIL verify
+            Image.open(f).verify()  # PIL verify
+            img = Image.open(f)  # open after verify
             assert min(img.size) > 9, 'image size <10 pixels'
 
             # Downsize to max_wh if necessary
@@ -81,4 +80,4 @@ def scan(files, max_wh=2000, remove=False, multi_thread=True):  # filelist, maxi
 if __name__ == '__main__':
     files = sorted(glob.iglob('../images/**/*.*', recursive=True))
     assert len(files), 'No files found'
-    scan(files, max_wh=2000, remove=True, multi_thread=True)
+    scan(files, max_wh=1920, remove=True, multi_thread=True)

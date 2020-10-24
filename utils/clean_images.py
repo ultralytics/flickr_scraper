@@ -1,6 +1,7 @@
 import glob
 import os
 from multiprocessing.pool import ThreadPool
+from pathlib import Path
 
 import numpy as np
 from PIL import Image
@@ -8,18 +9,25 @@ from tqdm import tqdm
 
 
 def scan(files, max_wh=2000, remove=False, multi_thread=True):  # filelist, maximum image wh, remove corrupted/duplicate
+    img_formats = ['.bmp', '.jpg', '.jpeg', '.png', '.tif', '.tiff', '.dng']  # valid image formats from YOLOv5
 
     def scan_one_file(f):
-        # Remove bad suffixes
-        suffix = f.split('.')[-1]
-        if suffix in ['gif', 'svg', 'ico']:  # bad suffix list
-            print('Bad suffix %s' % f)
+        # Check suffix
+        suffix = Path(f).suffix
+        if suffix not in img_formats:  # good suffix list
+            print('Invalid suffix %s' % f)
             os.remove(f) if remove else None
             return None
 
+        # Rename (remove wildcard characters)
+        src = f  # original name
+        f = f.replace('%20', '_').replace('%', '_').replace('*', '_').replace('~', '_')
+        f = f[:f.index('?')] if '?' in f else f  # new name
+        os.rename(src, f)
+
         # Downsize
         try:
-            # Checks (from YOLOv5)
+            # Checks
             Image.open(f).verify()  # PIL verify
             img = Image.open(f)  # open after verify
             assert min(img.size) > 9, 'image size <10 pixels'

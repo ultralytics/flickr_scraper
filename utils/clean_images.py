@@ -12,27 +12,32 @@ def scan(files, max_wh=2000, remove=False, multi_thread=True):  # filelist, maxi
     img_formats = ['.bmp', '.jpg', '.jpeg', '.png', '.tif', '.tiff', '.dng']  # valid image formats from YOLOv5
 
     def scan_one_file(f):
-        # Check suffix
-        suffix = Path(f).suffix
-        if suffix not in img_formats:  # good suffix list
-            print('Invalid suffix %s' % f)
-            os.remove(f) if remove else None
-            return None
-
-        # Rename (remove wildcard characters)
-        src = f  # original name
-        f = f.replace('%20', '_').replace('%', '_').replace('*', '_').replace('~', '_')
-        f = f[:f.index('?')] if '?' in f else f  # new name
-        os.rename(src, f)
-
-        # Downsize
         try:
-            # Checks
+            # Rename (remove wildcard characters)
+            src = f  # original name
+            f = f.replace('%20', '_').replace('%', '_').replace('*', '_').replace('~', '_')
+            f = f[:f.index('?')] if '?' in f else f  # new name
+            if src != f:
+                os.rename(src, f)  # rename
+
+            # Add suffix (if missing)
+            if Path(f).suffix == '':
+                src = f  # original name
+                f += '.' + Image.open(f).format.lower()  # append PIL format
+                os.rename(src, f)  # rename
+
+            # Check suffix
+            if Path(f).suffix not in img_formats:
+                print('Invalid suffix %s' % f)
+                os.remove(f) if remove else None
+                return None
+
+            # Check image
             Image.open(f).verify()  # PIL verify
             img = Image.open(f)  # open after verify
             assert min(img.size) > 9, 'image size <10 pixels'
 
-            # Downsize to max_wh if necessary
+            # Downsize
             r = max_wh / max(img.size)  # ratio (width, height = img.size)
             if r < 1:  # resize
                 print('Resizing %s' % f)
@@ -41,7 +46,7 @@ def scan(files, max_wh=2000, remove=False, multi_thread=True):  # filelist, maxi
             # Resave
             img.save(f)
 
-            # Get hash for duplicate detection
+            # Hash for duplicate detection
             img = np.array(img)  # to numpy
             img = np.repeat(img[:, :, None], 3, axis=2) if len(img.shape) == 2 else img  # greyscale to rgb
             img = img[:, :, :3] if img.shape[2] == 4 else img  # rgba to rgb (for pngs)

@@ -15,8 +15,9 @@ def scan(files, max_wh=2000, remove=False, multi_thread=True):  # filelist, maxi
         try:
             # Rename (remove wildcard characters)
             src = f  # original name
-            f = f.replace('%20', '_').replace('%', '_').replace('*', '_').replace('~', '_')
-            f = f[:f.index('?')] if '?' in f else f  # new name
+            for s in ['%20', '%', '*', '~', '(', ')']:  # strings to remove
+                f = f.replace(s, '_')
+            f = f[:f.index('?')] if ('?' in f and os.sep + '?' not in f) else f  # remove after '?' char
             if src != f:
                 os.rename(src, f)  # rename
 
@@ -27,7 +28,7 @@ def scan(files, max_wh=2000, remove=False, multi_thread=True):  # filelist, maxi
                 os.rename(src, f)  # rename
 
             # Check suffix
-            if Path(f).suffix not in img_formats:
+            if Path(f).suffix.lower() not in img_formats:
                 print('Invalid suffix %s' % f)
                 os.remove(f) if remove else None
                 return None
@@ -56,7 +57,8 @@ def scan(files, max_wh=2000, remove=False, multi_thread=True):  # filelist, maxi
         # Remove corrupted
         except Exception as e:
             print('WARNING: %s: %s' % (f, e))
-            os.remove(f) if remove else None
+            if remove and os.path.exists(f):
+                os.remove(f)
             return None
 
     # Scan all images

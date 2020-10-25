@@ -4,16 +4,12 @@ import argparse
 import os
 import time
 
-import requests
 from flickrapi import FlickrAPI
+
+from utils.general import download_uri
 
 key = ''  # Flickr API key https://www.flickr.com/services/apps/create/apply
 secret = ''
-
-
-def download_uri(uri, dir='./'):
-    with open(dir + uri.split('/')[-1], 'wb') as f:
-        f.write(requests.get(uri, timeout=10).content)
 
 
 def get_urls(search='honeybees on flowers', n=10, download=False):
@@ -33,24 +29,22 @@ def get_urls(search='honeybees on flowers', n=10, download=False):
 
     urls = []
     for i, photo in enumerate(photos):
-        if i == n:
-            break
+        if i < n:
+            try:
+                # construct url https://www.flickr.com/services/api/misc.urls.html
+                url = photo.get('url_o')  # original size
+                if url is None:
+                    url = 'https://farm%s.staticflickr.com/%s/%s_%s_b.jpg' % \
+                          (photo.get('farm'), photo.get('server'), photo.get('id'), photo.get('secret'))  # large size
 
-        try:
-            # construct url https://www.flickr.com/services/api/misc.urls.html
-            url = photo.get('url_o')  # original size
-            if url is None:
-                url = 'https://farm%s.staticflickr.com/%s/%s_%s_b.jpg' % \
-                      (photo.get('farm'), photo.get('server'), photo.get('id'), photo.get('secret'))  # large size
+                # download
+                if download:
+                    download_uri(url, dir)
 
-            # download
-            if download:
-                download_uri(url, dir)
-
-            urls.append(url)
-            print('%g/%g %s' % (i, n, url))
-        except:
-            print('%g/%g error...' % (i, n))
+                urls.append(url)
+                print('%g/%g %s' % (i, n, url))
+            except:
+                print('%g/%g error...' % (i, n))
 
     # import pandas as pd
     # urls = pd.Series(urls)

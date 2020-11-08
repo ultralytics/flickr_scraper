@@ -3,6 +3,8 @@ from multiprocessing.pool import ThreadPool
 from time import time as timer
 from urllib import request
 
+from tqdm import tqdm
+
 dir = '../'  # directory to save image downloads
 urls = ['https://farm8.staticflickr.com/7428/27138770446_6618c10ffb_b.jpg',
         'https://live.staticflickr.com/4571/37795143414_8ccae77768_o.jpg',
@@ -23,14 +25,16 @@ def fetch_url(url):
 
 # Multi-thread
 t = timer()
-results = ThreadPool(20).imap_unordered(fetch_url, urls)  # 20 threads
-for i, (url, resp) in enumerate(results):
-    print('%g %r %s' % (i, url, resp))
-print('Done multi-thread (%.2fs)' % (timer() - t))
+results = ThreadPool(8).imap_unordered(fetch_url, urls)  # 8 threads
+pbar = tqdm(enumerate(results), total=len(urls))
+for i, (url, resp) in pbar:
+    pbar.desc = '%g %r %s' % (i, url, resp)
+print('Done multi-thread (%.2fs)\n' % (timer() - t))
 
 # Single-thread
 t = timer()
-for i in range(len(urls)):
+pbar = tqdm(range(len(urls)))
+for i in pbar:
     url, resp = fetch_url(urls[i])
-    print('%g %r %s' % (i, url, resp))
-print('Done single-thread (%.2fs)' % (timer() - t))
+    pbar.desc = '%g %r %s' % (i, url, resp)
+print('Done single-thread (%.2fs)\n' % (timer() - t))

@@ -3,12 +3,16 @@ import os
 from multiprocessing.pool import ThreadPool
 from pathlib import Path
 
+import cv2
 import numpy as np
 from PIL import Image
 from tqdm import tqdm
 
+# Parameters
+to_jpg = False  # convert all images to PIL-saved JPGs (smaller and faster loading)
 
-def scan(files, max_wh=2000, remove=False, multi_thread=True):  # filelist, maximum image wh, remove corrupted/duplicate
+
+def scan(files, max_wh=1920, remove=False, multi_thread=True):  # filelist, maximum image wh, remove corrupted/duplicate
     img_formats = ['.bmp', '.jpg', '.jpeg', '.png', '.tif', '.tiff', '.dng']  # valid image formats from YOLOv5
 
     def scan_one_file(f):
@@ -35,7 +39,7 @@ def scan(files, max_wh=2000, remove=False, multi_thread=True):  # filelist, maxi
 
             # Check image
             Image.open(f).verify()  # PIL verify
-            img = Image.open(f)  # open after verify
+            img = Image.fromarray(cv2.imread(f)[:, :, ::-1])  # cv2 to PIL for 4ch PNGs and 1ch greyscale to 3ch
             assert min(img.size) > 9, 'image size <10 pixels'
 
             # Downsize
@@ -45,6 +49,10 @@ def scan(files, max_wh=2000, remove=False, multi_thread=True):  # filelist, maxi
                 img = img.resize((round(x * r) for x in img.size), Image.ANTIALIAS)  # resize(width, height)
 
             # Resave
+            if to_jpg:  # convert to JPG
+                if os.path.exists(f):
+                    os.remove(f)  # remove old
+                f = f.replace(Path(f).suffix, '.jpg')
             img.save(f)
 
             # Hash for duplicate detection
@@ -65,7 +73,7 @@ def scan(files, max_wh=2000, remove=False, multi_thread=True):  # filelist, maxi
     a = []  # list of good filenames, hashes
     nf = len(files)
     if multi_thread:
-        results = ThreadPool(20).imap_unordered(scan_one_file, files)  # 20 threads
+        results = ThreadPool(8).imap_unordered(scan_one_file, files)  # 8 threads
         for r in tqdm(results, desc='Scanning images', total=nf):
             a.append(r) if r else None
     else:  # single-thread

@@ -8,11 +8,13 @@ import numpy as np
 from PIL import Image
 from tqdm import tqdm
 
-# Parameters
-to_jpg = False  # convert all images to PIL-saved JPGs (smaller and faster loading)
 
-
-def scan(files, max_wh=1920, remove=False, multi_thread=True):  # filelist, maximum image wh, remove corrupted/duplicate
+def scan(files, max_wh=1920, remove=False, multi_thread=True, tojpg=False):
+    # Args:
+    #   files: list of image files
+    #   max_wh: maximum image wh (larger images will be reduced in size)
+    #   remove: delete corrupted/duplicate images
+    #   tojpg: replace current image with jpg for smaller size / faster loading
     img_formats = ['.bmp', '.jpg', '.jpeg', '.png', '.tif', '.tiff', '.dng']  # valid image formats from YOLOv5
 
     def scan_one_file(f):
@@ -49,7 +51,7 @@ def scan(files, max_wh=1920, remove=False, multi_thread=True):  # filelist, maxi
                 img = img.resize((round(x * r) for x in img.size), Image.ANTIALIAS)  # resize(width, height)
 
             # Resave
-            if to_jpg:  # convert to JPG
+            if tojpg:  # convert to JPG
                 if os.path.exists(f):
                     os.remove(f)  # remove old
                 f = f.replace(Path(f).suffix, '.jpg')
@@ -84,7 +86,7 @@ def scan(files, max_wh=1920, remove=False, multi_thread=True):  # filelist, maxi
     # Remove duplicates
     f, x = list(zip(*a))  # files, hashes
     x = np.array(x)
-    thres = 0.5  # threshold for declaring images identical (tunable parameter)
+    thres = 0.2  # threshold for declaring images identical (tunable parameter)
     removed = []  # removed items
     for i in range(len(f)):
         if i not in removed:  # if not removed
@@ -101,6 +103,7 @@ def scan(files, max_wh=1920, remove=False, multi_thread=True):  # filelist, maxi
 
 
 if __name__ == '__main__':
-    files = sorted(glob.iglob('../images/**/*.*', recursive=True))
+    files = sorted(glob.iglob('../../coco/images/val2017/**/*.*', recursive=True))
     assert len(files), 'No files found'
-    scan(files, max_wh=1920, remove=True, multi_thread=True)
+    scan(files, max_wh=1920, remove=False, multi_thread=True, tojpg=False)
+    # zip -r data.zip data

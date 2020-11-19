@@ -11,9 +11,9 @@ Python 3.7 or later with all of the `pip install -U -r requirements.txt` package
 
 # Install
 ```bash
-git clone https://github.com/ultralytics/flickr_scraper
-cd flickr_scraper
-pip install -U -r requirements.txt
+$ git clone https://github.com/ultralytics/flickr_scraper
+$ cd flickr_scraper
+$ pip install -U -r requirements.txt
 ```
 
 # Use

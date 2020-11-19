@@ -55,7 +55,7 @@ def scan(files, max_wh=1920, remove=False, multi_thread=True, tojpg=False):
                 if os.path.exists(f):
                     os.remove(f)  # remove old
                 f = f.replace(Path(f).suffix, '.jpg')
-            img.save(f)
+            img.save(f, quality=95)
 
             # Hash for duplicate detection
             img = np.array(img)  # to numpy

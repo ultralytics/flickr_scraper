@@ -103,7 +103,7 @@ def scan(files, max_wh=1920, remove=False, multi_thread=True, tojpg=False):
 
 
 if __name__ == '__main__':
-    files = sorted(glob.iglob('./images/**/*.*', recursive=True))
+    files = sorted(glob.iglob('../images/**/*.*', recursive=True))
     assert len(files), 'No files found'
     scan(files, max_wh=1920, remove=False, multi_thread=True, tojpg=False)
     # zip -r data.zip data

@@ -1,3 +1,4 @@
+import argparse
 import glob
 import os
 from multiprocessing.pool import ThreadPool
@@ -9,12 +10,13 @@ from PIL import Image
 from tqdm import tqdm
 
 
-def scan(files, max_wh=1920, remove=False, multi_thread=True, tojpg=False):
+def scan(files, max_wh=1920, remove=False, multi_thread=True, tojpg=False, quality=95):
     # Args:
     #   files: list of image files
     #   max_wh: maximum image wh (larger images will be reduced in size)
     #   remove: delete corrupted/duplicate images
     #   tojpg: replace current image with jpg for smaller size / faster loading
+    #   quality: PIL JPG saving quality (0-100)
     img_formats = ['.bmp', '.jpg', '.jpeg', '.png', '.tif', '.tiff', '.dng']  # valid image formats from YOLOv5
 
     def scan_one_file(f):
@@ -55,7 +57,7 @@ def scan(files, max_wh=1920, remove=False, multi_thread=True, tojpg=False):
                 if os.path.exists(f):
                     os.remove(f)  # remove old
                 f = f.replace(Path(f).suffix, '.jpg')
-            img.save(f, quality=95)
+            img.save(f, quality=quality)
 
             # Hash for duplicate detection
             img = np.array(img)  # to numpy
@@ -103,7 +105,15 @@ def scan(files, max_wh=1920, remove=False, multi_thread=True, tojpg=False):
 
 
 if __name__ == '__main__':
-    files = sorted(glob.iglob('../images/**/*.*', recursive=True))
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--dir', type=str, default='../images', help='image directory')
+    parser.add_argument('--maxwh', type=int, default=1920, help='resize to down to --max_wh if larger')
+    parser.add_argument('--remove', action='store_true', help='remove corrupted/duplicates')
+    parser.add_argument('--tojpg', action='store_true', help='convert images to PIL JPG')
+    parser.add_argument('--quality', type=int, default=95, help='JPG quality (0-100) if --tojpg')
+    opt = parser.parse_args()
+
+    files = sorted(glob.iglob(str(Path(opt.dir) / '**/*.*'), recursive=True))
     assert len(files), 'No files found'
-    scan(files, max_wh=1920, remove=False, multi_thread=True, tojpg=False)
+    scan(files, max_wh=opt.maxwh, remove=opt.remove, tojpg=opt.tojpg, quality=opt.quality)
     # zip -r data.zip data

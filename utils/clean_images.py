@@ -113,7 +113,9 @@ if __name__ == '__main__':
     parser.add_argument('--quality', type=int, default=95, help='JPG quality (0-100) if --tojpg')
     opt = parser.parse_args()
 
-    files = sorted(glob.iglob(str(Path(opt.dir) / '**/*.*'), recursive=True))
-    assert len(files), 'No files found'
+    dir = Path(opt.dir).resolve()
+    files = sorted(glob.iglob(str(dir / '**/*.*'), recursive=True))
+    assert len(files), f'No files found in {dir}'
+    print(f'Cleaning {len(files)} images in {dir} ...')
     scan(files, max_wh=opt.maxwh, remove=opt.remove, tojpg=opt.tojpg, quality=opt.quality)
     # zip -r data.zip data

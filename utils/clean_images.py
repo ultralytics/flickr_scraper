@@ -10,7 +10,7 @@ from PIL import Image
 from tqdm import tqdm
 
 
-def scan(files, max_wh=1920, remove=False, multi_thread=True, tojpg=False, quality=95):
+def scan(files, max_wh=1920, remove=False, multi_thread=True, tojpg=False, quality=95, workers=8):
     # Args:
     #   files: list of image files
     #   max_wh: maximum image wh (larger images will be reduced in size)
@@ -77,7 +77,7 @@ def scan(files, max_wh=1920, remove=False, multi_thread=True, tojpg=False, quali
     a = []  # list of good filenames, hashes
     nf = len(files)
     if multi_thread:
-        results = ThreadPool(8).imap_unordered(scan_one_file, files)  # 8 threads
+        results = ThreadPool(workers).imap_unordered(scan_one_file, files)  # 8 threads
         for r in tqdm(results, desc='Scanning images', total=nf):
             a.append(r) if r else None
     else:  # single-thread
@@ -105,17 +105,19 @@ def scan(files, max_wh=1920, remove=False, multi_thread=True, tojpg=False, quali
 
 
 if __name__ == '__main__':
+    # python utils/clean_images.py --dir ../coco128/images --mawh 1024 --tojpg --workers 8
     parser = argparse.ArgumentParser()
     parser.add_argument('--dir', type=str, default='../images', help='image directory')
     parser.add_argument('--maxwh', type=int, default=1920, help='resize to down to --max_wh if larger')
     parser.add_argument('--remove', action='store_true', help='remove corrupted/duplicates')
     parser.add_argument('--tojpg', action='store_true', help='convert images to PIL JPG')
     parser.add_argument('--quality', type=int, default=95, help='JPG quality (0-100) if --tojpg')
+    parser.add_argument('--workers', type=int, default=8, help='multi-thread workers')
     opt = parser.parse_args()
 
     dir = Path(opt.dir).resolve()
     files = sorted(glob.iglob(str(dir / '**/*.*'), recursive=True))
     assert len(files), f'No files found in {dir}'
     print(f'Cleaning {len(files)} images in {dir} ...')
-    scan(files, max_wh=opt.maxwh, remove=opt.remove, tojpg=opt.tojpg, quality=opt.quality)
+    scan(files, max_wh=opt.maxwh, remove=opt.remove, tojpg=opt.tojpg, quality=opt.quality, workers=opt.workers)
     # zip -r data.zip data

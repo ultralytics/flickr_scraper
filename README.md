@@ -20,7 +20,7 @@ $ pip install -U -r requirements.txt
 
 1. Request a Flickr API key: https://www.flickr.com/services/apps/create/apply
 
-2. Write your API key and secret in `flickr_scraper.py` L9-L10:
+2. Write your API key and secret in `flickr_scraper.py` L11-L12:
 ```python
 key = ''
 secret = ''

@@ -25,19 +25,19 @@ def scan(files, max_wh=1920, remove=False, multi_thread=True, tojpg=False, quali
             src = f  # original name
             for s in ['%20', '%', '*', '~', '(', ')']:  # strings to remove
                 f = f.replace(s, '_')
-            f = f[:f.index('?')] if ('?' in f and os.sep + '?' not in f) else f  # remove after '?' char
+            f = f[:f.index('?')] if '?' in f and f'{os.sep}?' not in f else f
             if src != f:
                 os.rename(src, f)  # rename
 
             # Add suffix (if missing)
             if Path(f).suffix == '':
                 src = f  # original name
-                f += '.' + Image.open(f).format.lower()  # append PIL format
+                f += f'.{Image.open(f).format.lower()}'
                 os.rename(src, f)  # rename
 
             # Check suffix
             if Path(f).suffix.lower() not in img_formats:
-                print('Invalid suffix %s' % f)
+                print(f'Invalid suffix {f}')
                 os.remove(f) if remove else None
                 return None
 
@@ -49,7 +49,7 @@ def scan(files, max_wh=1920, remove=False, multi_thread=True, tojpg=False, quali
             # Downsize
             r = max_wh / max(img.size)  # ratio (width, height = img.size)
             if r < 1:  # resize
-                print('Resizing %s' % f)
+                print(f'Resizing {f}')
                 img = img.resize((round(x * r) for x in img.size), Image.ANTIALIAS)  # resize(width, height)
 
             # Resave
@@ -66,9 +66,8 @@ def scan(files, max_wh=1920, remove=False, multi_thread=True, tojpg=False, quali
             hash = list(img.reshape(-1, 3).mean(0)) + list(img.reshape(-1, 3).std(0))  # unique to each image
             return [f, hash]
 
-        # Remove corrupted
         except Exception as e:
-            print('WARNING: %s: %s' % (f, e))
+            print(f'WARNING: {f}: {e}')
             if remove and os.path.exists(f):
                 os.remove(f)
             return None

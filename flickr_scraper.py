@@ -34,8 +34,8 @@ def get_urls(search='honeybees on flowers', n=10, download=False):
                 # construct url https://www.flickr.com/services/api/misc.urls.html
                 url = photo.get('url_o')  # original size
                 if url is None:
-                    url = 'https://farm%s.staticflickr.com/%s/%s_%s_b.jpg' % \
-                          (photo.get('farm'), photo.get('server'), photo.get('id'), photo.get('secret'))  # large size
+                    url = f"https://farm{photo.get('farm')}.staticflickr.com/{photo.get('server')}/{photo.get('id')}_{photo.get('secret')}_b.jpg"
+
 
                 # download
                 if download:

@@ -27,5 +27,5 @@ def download_uri(uri, dir='./'):
     # Add suffix (if missing)
     if Path(f).suffix == '':
         src = f  # original name
-        f += '.' + Image.open(f).format.lower()  # append PIL format
+        f += f'.{Image.open(f).format.lower()}'
         os.rename(src, f)  # rename

@@ -1,74 +1,90 @@
 <br>
 <img src="https://raw.githubusercontent.com/ultralytics/assets/main/logo/Ultralytics_Logotype_Original.svg" width="320">
 
-# Introduction
+# 🚀 Introduction
 
-Flickr scraper assists in compiling images for YOLO training from Flickr based on user input search criteria. This is helpful for quickly creating a dataset for computer vision tasks.
+Flickr scraper is a Python tool designed to help you gather images from Flickr to create datasets for YOLO training. Given your search criteria, this tool simplifies the process of collecting relevant images for various computer vision tasks.
 
-# Requirements
+## 🌟 Key Features
+- Search image on Flickr using keywords.
+- Download images directly for dataset assembly.
+- Streamline the process of collecting training data for YOLO models.
 
-Python 3.7 or later with all of the `pip install -U -r requirements.txt` packages including:
+# 🔧 Requirements
+
+Ensure you have Python 3.7 or later installed. The required dependencies can be installed using:
+```bash
+pip install -U -r requirements.txt
+```
+Key packages include:
 - `flickrapi`
 
-# Install
+# 🛠 Install
+
+To set up the Flickr scraper, follow these steps:
+
 ```bash
-$ git clone https://github.com/ultralytics/flickr_scraper
-$ cd flickr_scraper
-$ pip install -U -r requirements.txt
+git clone https://github.com/ultralytics/flickr_scraper
+cd flickr_scraper
+pip install -U -r requirements.txt
 ```
 
-# Run
+# ⚙️ Run
 
-1. Request a Flickr API key: https://www.flickr.com/services/apps/create/apply
+Before you begin:
 
-2. Write your API key and secret in `flickr_scraper.py` L11-L12:
+1. Obtain a Flickr API key [here](https://www.flickr.com/services/apps/create/apply).
+
+2. Insert your API key and secret into `flickr_scraper.py`:
 ```python
-key = ''
-secret = ''
+# Replace with your Flickr API key and secret
+key = 'YOUR_API_KEY'
+secret = 'YOUR_API_SECRET'
 ```
 
-3. Search for up to `n` images, and optionally `--download`. URLs are printed to screen and downloaded images are saved in `flickr_scraper/images`. Note that image downloads may be subject to Flickr rate limits and other limitations. See https://www.flickr.com/services/developer/api/ for full information.
+3. Execute the script with your search criteria. Specify the number of images to fetch (`--n`) and use `--download` to save the images locally. Downloaded images are saved to `flickr_scraper/images`. Keep in mind Flickr's rate limits and terms of use. Learn more from the [Flickr API documentation](https://www.flickr.com/services/developer/api/).
 
+Example command:
 ```bash
-$ python3 flickr_scraper.py --search 'honeybees on flowers' --n 10 --download
+python3 flickr_scraper.py --search 'honeybees on flowers' --n 10 --download
+```
 
+You will see output similar to:
+```plaintext
 0/10 https://live.staticflickr.com/21/38596887_40df118fd9_o.jpg
-1/10 https://live.staticflickr.com/4800/40729137901_5dafdc039f_o.jpg
-2/10 https://farm8.staticflickr.com/7428/27138770446_6618c10ffb_b.jpg
-3/10 https://live.staticflickr.com/925/29647053658_728134f6ca_o.jpg
-4/10 https://live.staticflickr.com/1732/27535176747_78b83536af_o.jpg
-5/10 https://live.staticflickr.com/7850/47160160332_6b0c88e207_o.jpg
-6/10 https://live.staticflickr.com/1919/44312457665_6f7b6c2c42_o.jpg
-7/10 https://live.staticflickr.com/7922/46297818725_21c13a3629_o.jpg
-8/10 https://live.staticflickr.com/8045/29760999676_e71c938283_o.jpg
+...
 9/10 https://live.staticflickr.com/1770/43276172331_e779b8c161_o.jpg
 Done. (4.1s)
 All images saved to /Users/glennjocher/PycharmProjects/flickr_scraper/images/honeybees_on_flowers/
 ```
+Images are then available in the specified folder, ready for further processing or training.
+
 <img src="https://user-images.githubusercontent.com/26833433/75074332-4792c600-54b0-11ea-8c98-22acf58ba8e7.jpg" width="">
 
-# Cite
+# 📜 Cite
+
+If our project assists in your research or work, please consider citing it:
 
 [![DOI](https://zenodo.org/badge/242235660.svg)](https://zenodo.org/badge/latestdoi/242235660)
 
-# Contribute
+# 🤝 Contribute
 
-We love your input! Ultralytics open-source efforts would not be possible without help from our community. Please see our [Contributing Guide](https://docs.ultralytics.com/help/contributing) to get started, and fill out our [Survey](https://ultralytics.com/survey?utm_source=github&utm_medium=social&utm_campaign=Survey) to send us feedback on your experience. Thank you 🙏 to all our contributors!
+We welcome contributions from the community! Whether you're fixing bugs, adding new features, or improving documentation, your input is invaluable. Take a look at our [Contributing Guide](https://docs.ultralytics.com/help/contributing) to get started. Also, we'd love to hear about your experience with Ultralytics products. Please consider filling out our [Survey](https://ultralytics.com/survey?utm_source=github&utm_medium=social&utm_campaign=Survey). A huge 🙏 and thank you to all of our contributors!
 
-<!-- SVG image from https://opencollective.com/ultralytics/contributors.svg?width=990 -->
+<!-- Ultralytics contributors -->
 <a href="https://github.com/ultralytics/yolov5/graphs/contributors">
 <img width="100%" src="https://github.com/ultralytics/assets/raw/main/im/image-contributors.png" alt="Ultralytics open-source contributors"></a>
 
-# License
+# ©️ License
 
-Ultralytics offers two licensing options to accommodate diverse use cases:
+Ultralytics is excited to offer two different licensing options to meet your needs:
 
-- **AGPL-3.0 License**: This [OSI-approved](https://opensource.org/licenses/) open-source license is ideal for students and enthusiasts, promoting open collaboration and knowledge sharing. See the [LICENSE](https://github.com/ultralytics/ultralytics/blob/main/LICENSE) file for more details.
-- **Enterprise License**: Designed for commercial use, this license permits seamless integration of Ultralytics software and AI models into commercial goods and services, bypassing the open-source requirements of AGPL-3.0. If your scenario involves embedding our solutions into a commercial offering, reach out through [Ultralytics Licensing](https://ultralytics.com/license).
+- **AGPL-3.0 License**: Perfect for students and hobbyists, this [OSI-approved](https://opensource.org/licenses/) open-source license encourages collaborative learning and knowledge sharing. Please refer to the [LICENSE](https://github.com/ultralytics/ultralytics/blob/main/LICENSE) file for detailed terms.
+- **Enterprise License**: Ideal for commercial use, this license allows for the integration of Ultralytics software and AI models into commercial products without the open-source requirements of AGPL-3.0. For use cases that involve commercial applications, please contact us via [Ultralytics Licensing](https://ultralytics.com/license).
 
-# Contact
+# 📬 Contact Us
 
-For Ultralytics bug reports and feature requests please visit [GitHub Issues](https://github.com/ultralytics/flickr_scraper/issues), and join our [Discord](https://ultralytics.com/discord) community for questions and discussions!
+For bug reports, feature requests, and contributions, head to [GitHub Issues](https://github.com/ultralytics/flickr_scraper/issues). For questions and discussions about this project and other Ultralytics endeavors, join us on [Discord](https://ultralytics.com/discord)!
 
 <br>
 <div align="center">
@@ -86,5 +102,3 @@ For Ultralytics bug reports and feature requests please visit [GitHub Issues](ht
   <img src="https://github.com/ultralytics/assets/raw/main/social/logo-transparent.png" width="3%" alt="space">
   <a href="https://ultralytics.com/discord"><img src="https://github.com/ultralytics/assets/raw/main/social/logo-social-discord.png" width="3%" alt="Ultralytics Discord"></a>
 </div>
-
-**Issues should be raised directly in the repository.** For business inquiries or professional support requests please visit https://www.ultralytics.com or email Glenn Jocher at glenn.jocher@ultralytics.com. 

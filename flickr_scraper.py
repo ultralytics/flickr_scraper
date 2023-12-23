@@ -3,14 +3,16 @@
 import argparse
 import os
 import time
+from dotenv import load_dotenv
 
 from flickrapi import FlickrAPI
 
 from utils.general import download_uri
 
-key = ''  # Flickr API key https://www.flickr.com/services/apps/create/apply
-secret = ''
+load_dotenv()
 
+key = os.getenv('FLICKR_API_KEY', '')
+secret = os.getenv('FLICKR_API_SECRET', '')
 
 def get_urls(search='honeybees on flowers', n=10, download=False):
     t = time.time()

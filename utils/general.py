@@ -8,24 +8,24 @@ import requests
 from PIL import Image
 
 
-def download_uri(uri, dir='./'):
+def download_uri(uri, dir="./"):
     # Download a file from a given URI, including minimal checks
 
     # Download
     f = dir + os.path.basename(uri)  # filename
-    with open(f, 'wb') as file:
+    with open(f, "wb") as file:
         file.write(requests.get(uri, timeout=10).content)
 
     # Rename (remove wildcard characters)
     src = f  # original name
-    for c in ['%20', '%', '*', '~', '(', ')']:
-        f = f.replace(c, '_')
-    f = f[:f.index('?')] if '?' in f else f  # new name
+    for c in ["%20", "%", "*", "~", "(", ")"]:
+        f = f.replace(c, "_")
+    f = f[: f.index("?")] if "?" in f else f  # new name
     if src != f:
         os.rename(src, f)  # rename
 
     # Add suffix (if missing)
-    if Path(f).suffix == '':
+    if Path(f).suffix == "":
         src = f  # original name
-        f += f'.{Image.open(f).format.lower()}'
+        f += f".{Image.open(f).format.lower()}"
         os.rename(src, f)  # rename

@@ -6,6 +6,7 @@
 Flickr scraper is a Python tool designed to help you gather images from Flickr to create datasets for YOLO training. Given your search criteria, this tool simplifies the process of collecting relevant images for various computer vision tasks.
 
 ## 🌟 Key Features
+
 - Search image on Flickr using keywords.
 - Download images directly for dataset assembly.
 - Streamline the process of collecting training data for YOLO models.
@@ -13,10 +14,13 @@ Flickr scraper is a Python tool designed to help you gather images from Flickr t
 # 🔧 Requirements
 
 Ensure you have Python 3.7 or later installed. The required dependencies can be installed using:
+
 ```bash
 pip install -U -r requirements.txt
 ```
+
 Key packages include:
+
 - `flickrapi`
 
 # 🛠 Install
@@ -36,6 +40,7 @@ Before you begin:
 1. Obtain a Flickr API key [here](https://www.flickr.com/services/apps/create/apply).
 
 2. Insert your API key and secret into `flickr_scraper.py`:
+
 ```python
 # Replace with your Flickr API key and secret
 key = 'YOUR_API_KEY'
@@ -45,11 +50,13 @@ secret = 'YOUR_API_SECRET'
 3. Execute the script with your search criteria. Specify the number of images to fetch (`--n`) and use `--download` to save the images locally. Downloaded images are saved to `flickr_scraper/images`. Keep in mind Flickr's rate limits and terms of use. Learn more from the [Flickr API documentation](https://www.flickr.com/services/developer/api/).
 
 Example command:
+
 ```bash
 python3 flickr_scraper.py --search 'honeybees on flowers' --n 10 --download
 ```
 
 You will see output similar to:
+
 ```plaintext
 0/10 https://live.staticflickr.com/21/38596887_40df118fd9_o.jpg
 ...
@@ -57,6 +64,7 @@ You will see output similar to:
 Done. (4.1s)
 All images saved to /Users/glennjocher/PycharmProjects/flickr_scraper/images/honeybees_on_flowers/
 ```
+
 Images are then available in the specified folder, ready for further processing or training.
 
 <img src="https://user-images.githubusercontent.com/26833433/75074332-4792c600-54b0-11ea-8c98-22acf58ba8e7.jpg" width="">
@@ -72,6 +80,7 @@ If our project assists in your research or work, please consider citing it:
 We welcome contributions from the community! Whether you're fixing bugs, adding new features, or improving documentation, your input is invaluable. Take a look at our [Contributing Guide](https://docs.ultralytics.com/help/contributing) to get started. Also, we'd love to hear about your experience with Ultralytics products. Please consider filling out our [Survey](https://ultralytics.com/survey?utm_source=github&utm_medium=social&utm_campaign=Survey). A huge 🙏 and thank you to all of our contributors!
 
 <!-- Ultralytics contributors -->
+
 <a href="https://github.com/ultralytics/yolov5/graphs/contributors">
 <img width="100%" src="https://github.com/ultralytics/assets/raw/main/im/image-contributors.png" alt="Ultralytics open-source contributors"></a>
 

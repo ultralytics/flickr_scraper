@@ -5,6 +5,8 @@
 
 Flickr scraper is a Python tool designed to help you gather images from Flickr to create datasets for YOLO training. Given your search criteria, this tool simplifies the process of collecting relevant images for various computer vision tasks.
 
+[![Ultralytics Actions](https://github.com/ultralytics/flickr_scraper/actions/workflows/format.yml/badge.svg)](https://github.com/ultralytics/flickr_scraper/actions/workflows/format.yml)
+
 ## 🌟 Key Features
 
 - Search image on Flickr using keywords.

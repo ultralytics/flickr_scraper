@@ -56,6 +56,9 @@ def get_urls(search='honeybees on flowers', n=10, download=False):
             print('Done. (%.1fs)' % (time.time() - t) + ('\nAll images saved to %s' % dir if download else ''))
             break
 
+class PreserveQuotesAction(argparse.Action):
+    def __call__(self, parser, namespace, values, option_string=None):
+        setattr(namespace, self.dest, ' '.join(values))
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()

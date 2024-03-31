@@ -1,5 +1,5 @@
 # pip install -U -r requirements.txt
-
+python-dotenv
 flickrapi
 numpy
 pillow

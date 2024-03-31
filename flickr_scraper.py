@@ -12,18 +12,21 @@ from utils.general import download_uri
 
 load_dotenv()
 
-key = os.getenv('FLICKR_API_KEY', '')
-secret = os.getenv('FLICKR_API_SECRET', '')
+key = os.getenv("FLICKR_API_KEY", "")
+secret = os.getenv("FLICKR_API_SECRET", "")
 
 # Global flag to indicate if Ctrl+C was pressed
 interrupted = False
+
 
 def signal_handler(signal, frame):
     global interrupted
     interrupted = True
     print("\nProgram interrupted by user. Exiting...")
 
+
 signal.signal(signal.SIGINT, signal_handler)
+
 
 def get_urls(search="honeybees on flowers", n=10, download=False):
     # Add variations to the search term
@@ -73,9 +76,11 @@ def get_urls(search="honeybees on flowers", n=10, download=False):
             print("Done. (%.1fs)" % (time.time() - t) + ("\nAll images saved to %s" % dir if download else ""))
             break
 
+
 class PreserveQuotesAction(argparse.Action):
     def __call__(self, parser, namespace, values, option_string=None):
-        setattr(namespace, self.dest, ' '.join(values))
+        setattr(namespace, self.dest, " ".join(values))
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

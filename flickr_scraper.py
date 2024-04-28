@@ -13,6 +13,7 @@ secret = ""
 
 
 def get_urls(search="honeybees on flowers", n=10, download=False):
+    """Fetch Flickr URLs for `search` term images, optionally downloading them; supports up to `n` images."""
     t = time.time()
     flickr = FlickrAPI(key, secret)
     license = ()  # https://www.flickr.com/services/api/explore/?method=flickr.photos.licenses.getInfo
@@ -36,7 +37,10 @@ def get_urls(search="honeybees on flowers", n=10, download=False):
                 # construct url https://www.flickr.com/services/api/misc.urls.html
                 url = photo.get("url_o")  # original size
                 if url is None:
-                    url = f"https://farm{photo.get('farm')}.staticflickr.com/{photo.get('server')}/{photo.get('id')}_{photo.get('secret')}_b.jpg"
+                    url = (
+                        f"https://farm{photo.get('farm')}.staticflickr.com/{photo.get('server')}/"
+                        f"{photo.get('id')}_{photo.get('secret')}_b.jpg"
+                    )
 
                 # download
                 if download:

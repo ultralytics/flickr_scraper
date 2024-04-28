@@ -17,6 +17,7 @@ urls = [
 
 
 def fetch_url(url):
+    """Downloads a file from a URL to a local directory, returning the URL and any error encountered."""
     try:
         f = dir + url.split("/")[-1]
         request.urlretrieve(url, f)

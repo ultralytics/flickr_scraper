@@ -11,12 +11,16 @@ from tqdm import tqdm
 
 
 def scan(files, max_wh=1920, remove=False, multi_thread=True, tojpg=False, quality=95, workers=8):
-    # Args:
-    #   files: list of image files
-    #   max_wh: maximum image wh (larger images will be reduced in size)
-    #   remove: delete corrupted/duplicate images
-    #   tojpg: replace current image with jpg for smaller size / faster loading
-    #   quality: PIL JPG saving quality (0-100)
+    """
+    Scans and processes images by resizing, converting to jpg, and removing duplicates or corrupt files.
+
+    Args:
+        files: list of image files
+        max_wh: maximum image wh (larger images will be reduced in size)
+        remove: delete corrupted/duplicate images
+        tojpg: replace current image with jpg for smaller size / faster loading
+        quality: PIL JPG saving quality (0-100)
+    """
     img_formats = [".bmp", ".jpg", ".jpeg", ".png", ".tif", ".tiff", ".dng"]  # valid image formats from YOLOv5
 
     def scan_one_file(f):

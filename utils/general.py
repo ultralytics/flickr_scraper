@@ -2,9 +2,10 @@
 # Written by Glenn Jocher (glenn.jocher@ultralytics.com) for https://github.com/ultralytics
 
 import os
+from pathlib import Path
+
 import requests
 from PIL import Image
-from pathlib import Path
 
 
 def download_uri(uri, dir="./"):

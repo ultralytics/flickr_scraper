@@ -1,16 +1,18 @@
 import argparse
-import cv2
 import glob
-import numpy as np
 import os
-from PIL import Image
 from multiprocessing.pool import ThreadPool
 from pathlib import Path
+
+import cv2
+import numpy as np
+from PIL import Image
 from tqdm import tqdm
 
 
 def scan(files, max_wh=1920, remove=False, multi_thread=True, tojpg=False, quality=95, workers=8):
-    """Scans and processes images by resizing, converting to jpg, and removing duplicates or corrupt files.
+    """
+    Scans and processes images by resizing, converting to jpg, and removing duplicates or corrupt files.
 
     Args:
         files: list of image files

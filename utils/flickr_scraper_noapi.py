@@ -1,5 +1,6 @@
-import numpy as np
 import urllib.request
+
+import numpy as np
 
 fp = urllib.request.urlopen("https://www.flickr.com/search?text=flowers&structured=yes&page=2")
 
@@ -15,7 +16,7 @@ fp.close()
 res = [i for i in range(len(str)) if str.startswith("_b.jpg", i)]
 a = []
 for i in res:
-    s = "https://" + str[i - 70: i + 6].replace("\\", "").split("//")[-1]
+    s = "https://" + str[i - 70 : i + 6].replace("\\", "").split("//")[-1]
     a.append(s)
 a = list(np.unique(np.array(a)))
 print(len(a), a)

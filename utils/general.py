@@ -2,14 +2,13 @@
 # Written by Glenn Jocher (glenn.jocher@ultralytics.com) for https://github.com/ultralytics
 
 import os
-from pathlib import Path
-
 import requests
 from PIL import Image
+from pathlib import Path
 
 
 def download_uri(uri, dir="./"):
-    # Download a file from a given URI, including minimal checks
+    """Downloads file from URI, performing checks and renaming; supports timeout and image format suffix addition."""
 
     # Download
     f = dir + os.path.basename(uri)  # filename

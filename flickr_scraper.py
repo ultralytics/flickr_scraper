@@ -48,7 +48,7 @@ def get_urls(search="honeybees on flowers", n=10, download=False):
 
                 urls.append(url)
                 print("%g/%g %s" % (i, n, url))
-            except:
+            except Exception:
                 print("%g/%g error..." % (i, n))
 
         else:

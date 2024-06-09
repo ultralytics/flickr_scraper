@@ -5,7 +5,6 @@ import os
 import time
 
 from flickrapi import FlickrAPI
-
 from utils.general import download_uri
 
 key = ""  # Flickr API key https://www.flickr.com/services/apps/create/apply
@@ -48,7 +47,7 @@ def get_urls(search="honeybees on flowers", n=10, download=False):
 
                 urls.append(url)
                 print("%g/%g %s" % (i, n, url))
-            except:
+            except Exception:
                 print("%g/%g error..." % (i, n))
 
         else:

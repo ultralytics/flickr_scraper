@@ -45,8 +45,8 @@ Before you begin:
 
 ```python
 # Replace with your Flickr API key and secret
-key = 'YOUR_API_KEY'
-secret = 'YOUR_API_SECRET'
+key = "YOUR_API_KEY"
+secret = "YOUR_API_SECRET"
 ```
 
 3. Execute the script with your search criteria. Specify the number of images to fetch (`--n`) and use `--download` to save the images locally. Downloaded images are saved to `flickr_scraper/images`. Keep in mind Flickr's rate limits and terms of use. Learn more from the [Flickr API documentation](https://www.flickr.com/services/developer/api/).

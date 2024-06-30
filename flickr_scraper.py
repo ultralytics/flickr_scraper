@@ -51,6 +51,7 @@ def get_urls(search="honeybees on flowers", n=10, download=False):
             os.makedirs(dir)
 
     urls = []
+    
     for i, photo in enumerate(photos):
         if interrupted:
             print("Interrupted by user. Exiting...")

@@ -246,3 +246,6 @@ fabric.properties
 
 images/*
 !images/.gitkeep
+
+output/*
+!output/.gitkeep

@@ -1,6 +1,4 @@
-# pip install -U -r requirements.txt
+# /requirements.txt
+requests
 python-dotenv
-flickrapi
-numpy
-pillow
-tqdm
+PyYAML

@@ -5,7 +5,6 @@ import time
 from pathlib import Path
 
 from flickrapi import FlickrAPI
-
 from utils.general import download_uri
 
 key = ""  # Flickr API key https://www.flickr.com/services/apps/create/apply

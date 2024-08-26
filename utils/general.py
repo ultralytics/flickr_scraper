@@ -10,7 +10,6 @@ from PIL import Image
 
 def download_uri(uri, dir="./"):
     """Downloads file from URI, performing checks and renaming; supports timeout and image format suffix addition."""
-
     # Download
     f = dir + os.path.basename(uri)  # filename
     with open(f, "wb") as file:

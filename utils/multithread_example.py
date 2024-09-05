@@ -31,7 +31,7 @@ t = timer()
 results = ThreadPool(8).imap_unordered(fetch_url, urls)  # 8 threads
 pbar = tqdm(enumerate(results), total=len(urls))
 for i, (url, resp) in pbar:
-    pbar.desc = "%g %r %s" % (i, url, resp)
+    pbar.desc = f"{i:g} {url!r} {resp}"
 print("Done multi-thread (%.2fs)\n" % (timer() - t))
 
 # Single-thread
@@ -39,5 +39,5 @@ t = timer()
 pbar = tqdm(range(len(urls)))
 for i in pbar:
     url, resp = fetch_url(urls[i])
-    pbar.desc = "%g %r %s" % (i, url, resp)
+    pbar.desc = f"{i:g} {url!r} {resp}"
 print("Done single-thread (%.2fs)\n" % (timer() - t))

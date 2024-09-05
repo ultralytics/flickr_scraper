@@ -105,7 +105,7 @@ def scan(files, max_wh=1920, remove=False, multi_thread=True, tojpg=False, quali
                     if remove and os.path.exists(f[j]):
                         os.remove(f[j])
                 print(f"Duplicate images {f[i]} {[f[j] for j in duplicates]}")
-    print("Found %g duplicates." % len(removed))
+    print(f"Found {len(removed):g} duplicates.")
 
 
 if __name__ == "__main__":

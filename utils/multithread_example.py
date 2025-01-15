@@ -1,3 +1,5 @@
+# Ultralytics 🚀 AGPL-3.0 License - https://ultralytics.com/license
+
 #!/usr/bin/env python
 from multiprocessing.pool import ThreadPool
 from time import time as timer

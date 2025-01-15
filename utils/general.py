@@ -1,3 +1,5 @@
+# Ultralytics 🚀 AGPL-3.0 License - https://ultralytics.com/license
+
 # General utilities for use in image-handling operations
 # Written by Glenn Jocher (glenn.jocher@ultralytics.com) for https://github.com/ultralytics
 

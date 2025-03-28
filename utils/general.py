@@ -33,7 +33,7 @@ def download_uri(uri, dir="./"):
         src.rename(f)  # rename
 
     # Add suffix (if missing)
-    if f.suffix == "":
+    if not f.suffix:
         src = f  # original name
         f = f.with_suffix(f".{Image.open(f).format.lower()}")
         src.rename(f)  # rename

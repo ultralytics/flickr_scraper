@@ -3,4 +3,5 @@
 flickrapi
 numpy
 pillow
+requests
 tqdm

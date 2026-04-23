@@ -76,9 +76,9 @@ python3 flickr_scraper.py --search 'honeybees on flowers' --n 10 --download
 You should see output indicating the download progress:
 
 ```plaintext
-1/10 https://live.staticflickr.com/21/38596887_40df118fd9_o.jpg
+1/10 downloaded
 ...
-10/10 https://live.staticflickr.com/1770/43276172331_e779b8c161_o.jpg
+10/10 downloaded
 Done. (4.1s)
 All images saved to /Users/glennjocher/PycharmProjects/flickr_scraper/images/honeybees_on_flowers/
 ```
@@ -100,6 +100,8 @@ The script de-duplicates URLs within each run, but it does not keep a persistent
 ## 🧩 Compatibility Notes
 
 This scraper uses Flickr's JSON `photos.search` API response directly. It does not call `flickrapi.walk()`, avoiding the older `getchildren()` compatibility error reported with `flickrapi==2.4.0` on Python 3.9 and newer.
+
+Photos missing Flickr's direct `url_o` field are skipped instead of constructing fallback URLs from Flickr metadata fields. This avoids propagating secret-bearing fields into download paths or logs.
 
 If Flickr returns a `500` or another API error, the script reports the Flickr error code and message. These errors usually come from Flickr or invalid credentials; retry the command after checking your API key and secret.
 

@@ -5,7 +5,7 @@ from pathlib import Path
 import pytest
 
 import flickr_scraper
-from utils.general import download_uri
+from utils.general import download_uri, safe_filename_from_uri
 
 
 def test_build_photo_url_prefers_original_url():
@@ -21,11 +21,11 @@ def test_build_photo_url_prefers_original_url():
     assert flickr_scraper.build_photo_url(photo) == "https://live.staticflickr.com/photo_o.jpg"
 
 
-def test_build_photo_url_falls_back_to_large_static_url():
-    """Ensure a static Flickr URL is built when the original URL is unavailable."""
+def test_build_photo_url_skips_photos_without_original_url():
+    """Ensure secret-bearing fallback URLs are not built."""
     photo = {"farm": "1", "server": "2", "id": "3", "secret": "4"}
 
-    assert flickr_scraper.build_photo_url(photo) == "https://farm1.staticflickr.com/2/3_4_b.jpg"
+    assert flickr_scraper.build_photo_url(photo) is None
 
 
 def test_resolve_credentials_requires_key_and_secret(monkeypatch):
@@ -39,8 +39,8 @@ def test_resolve_credentials_requires_key_and_secret(monkeypatch):
         flickr_scraper.resolve_credentials()
 
 
-def test_get_urls_uses_json_search_and_honors_limit(monkeypatch):
-    """Ensure get_urls uses photos.search and returns exactly the requested number of URLs."""
+def test_get_urls_uses_json_search_and_redacts_output(monkeypatch, capsys):
+    """Ensure get_urls uses photos.search, skips secret fallback URLs, and redacts output."""
     calls = []
 
     class FakePhotos:
@@ -69,8 +69,12 @@ def test_get_urls_uses_json_search_and_honors_limit(monkeypatch):
     monkeypatch.setattr(flickr_scraper, "FlickrAPI", FakeFlickr)
 
     urls = flickr_scraper.get_urls("bees", n=2, api_key="key", api_secret="secret", page=3)
+    stdout = capsys.readouterr().out
 
-    assert urls == ["https://example.com/1.jpg", "https://farm1.staticflickr.com/2/3_4_b.jpg"]
+    assert urls == ["https://example.com/1.jpg", "https://example.com/extra.jpg"]
+    assert "https://example.com" not in stdout
+    assert "3_4_b.jpg" not in stdout
+    assert "skipped (missing original URL)" in stdout
     assert calls == [
         {
             "text": "bees",
@@ -132,3 +136,10 @@ def test_download_uri_joins_directory_and_sanitizes_filename(monkeypatch, tmp_pa
     download_uri("https://example.com/folder/photo%20name(1).jpg?size=o", tmp_path)
 
     assert (Path(tmp_path) / "photo_name_1_.jpg").read_bytes() == b"image"
+
+
+def test_safe_filename_from_uri_removes_query_parameters():
+    """Ensure query parameters are not persisted in temporary filenames."""
+    uri = "https://example.com/folder/photo name.jpg?secret=token&download=1"
+
+    assert safe_filename_from_uri(uri) == "photo_name.jpg"

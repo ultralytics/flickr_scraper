@@ -16,12 +16,8 @@ secret = ""
 
 
 def build_photo_url(photo):
-    """Return the best available static image URL from a Flickr photo response."""
-    url = photo.get("url_o")  # original size
-    return url or (
-        f"https://farm{photo.get('farm')}.staticflickr.com/"
-        f"{photo.get('server')}/{photo.get('id')}_{photo.get('secret')}_b.jpg"
-    )
+    """Return the Flickr-provided original image URL when available."""
+    return photo.get("url_o")
 
 
 def resolve_credentials(api_key=None, api_secret=None):
@@ -79,6 +75,10 @@ def get_urls(search="honeybees on flowers", n=10, download=False, api_key=None, 
 
         for photo in photo_list:
             url = build_photo_url(photo)
+            if url is None:
+                print("skipped (missing original URL)")
+                continue
+
             if url in urls:
                 continue
 
@@ -86,7 +86,7 @@ def get_urls(search="honeybees on flowers", n=10, download=False, api_key=None, 
                 download_uri(url, dir_path)
 
             urls.append(url)
-            print(f"{len(urls)}/{n} {url}")
+            print(f"{len(urls)}/{n} {'downloaded' if download else 'found'}")
 
             if len(urls) >= n:
                 break

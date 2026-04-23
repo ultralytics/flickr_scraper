@@ -13,8 +13,7 @@ from tqdm import tqdm
 
 
 def scan(files, max_wh=1920, remove=False, multi_thread=True, tojpg=False, quality=95, workers=8):
-    """
-    Scans and processes images by resizing, converting to jpg, and removing duplicates or corrupt files.
+    """Scans and processes images by resizing, converting to jpg, and removing duplicates or corrupt files.
 
     Args:
         files: list of image files
@@ -49,7 +48,7 @@ def scan(files, max_wh=1920, remove=False, multi_thread=True, tojpg=False, quali
 
             # Check image
             Image.open(f).verify()  # PIL verify
-            img = Image.fromarray(cv2.imread(f)[:, :, ::-1])  # cv2 to PIL for 4ch PNGs and 1ch greyscale to 3ch
+            img = Image.fromarray(cv2.imread(f)[:, :, ::-1])  # cv2 to PIL for 4ch PNGs and 1ch grayscale to 3ch
             assert min(img.size) > 9, "image size <10 pixels"
 
             # Downsize
@@ -67,7 +66,7 @@ def scan(files, max_wh=1920, remove=False, multi_thread=True, tojpg=False, quali
 
             # Hash for duplicate detection
             img = np.array(img)  # to numpy
-            img = np.repeat(img[:, :, None], 3, axis=2) if len(img.shape) == 2 else img  # greyscale to rgb
+            img = np.repeat(img[:, :, None], 3, axis=2) if len(img.shape) == 2 else img  # grayscale to rgb
             img = img[:, :, :3] if img.shape[2] == 4 else img  # rgba to rgb (for pngs)
             hash = list(img.reshape(-1, 3).mean(0)) + list(img.reshape(-1, 3).std(0))  # unique to each image
             return [f, hash]

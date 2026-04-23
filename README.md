@@ -17,7 +17,7 @@ The Flickr Scraper is a [Python](https://www.python.org/) tool designed to help 
 
 ## 🔧 Requirements
 
-Ensure you have Python 3.7 or later installed. The necessary dependencies can be installed using [pip](https://pip.pypa.io/en/stable/):
+Ensure you have Python 3.8 or later installed. The necessary dependencies can be installed using [pip](https://pip.pypa.io/en/stable/):
 
 ```bash
 pip install -U -r requirements.txt
@@ -47,7 +47,14 @@ pip install -U -r requirements.txt
 Before you begin scraping images:
 
 1.  **Get a Flickr API Key**: Obtain your unique API key and secret by applying [here](https://www.flickr.com/services/apps/create/apply).
-2.  **Configure API Credentials**: Insert your API key and secret into the `flickr_scraper.py` script:
+2.  **Configure API Credentials**: Set your Flickr API key and secret as environment variables:
+
+```bash
+export FLICKR_API_KEY="YOUR_API_KEY"
+export FLICKR_API_SECRET="YOUR_API_SECRET"
+```
+
+You can also pass credentials directly with `--key` and `--secret`, or insert them into `flickr_scraper.py` if you prefer a local-only script:
 
 ```python
 # flickr_scraper.py
@@ -69,9 +76,9 @@ python3 flickr_scraper.py --search 'honeybees on flowers' --n 10 --download
 You should see output indicating the download progress:
 
 ```plaintext
-0/10 https://live.staticflickr.com/21/38596887_40df118fd9_o.jpg
+1/10 https://live.staticflickr.com/21/38596887_40df118fd9_o.jpg
 ...
-9/10 https://live.staticflickr.com/1770/43276172331_e779b8c161_o.jpg
+10/10 https://live.staticflickr.com/1770/43276172331_e779b8c161_o.jpg
 Done. (4.1s)
 All images saved to /Users/glennjocher/PycharmProjects/flickr_scraper/images/honeybees_on_flowers/
 ```
@@ -79,6 +86,22 @@ All images saved to /Users/glennjocher/PycharmProjects/flickr_scraper/images/hon
 The downloaded images will be available in the specified folder (e.g., `images/honeybees_on_flowers/`), ready for annotation, further processing, or direct use in training your models.
 
 <img src="https://user-images.githubusercontent.com/26833433/75074332-4792c600-54b0-11ea-8c98-22acf58ba8e7.jpg" width="600" alt="Example scraped image of a honeybee on a flower">
+
+## 🔁 Downloading More Results
+
+Flickr search order is controlled by the Flickr API and may change over time. If you run the same command again with the same search term, Flickr can return many of the same results. To continue from a later result page, use `--page`:
+
+```bash
+python3 flickr_scraper.py --search 'honeybees on flowers' --n 50 --download --page 2
+```
+
+The script de-duplicates URLs within each run, but it does not keep a persistent database of previously downloaded Flickr photo IDs. For repeat dataset collection, keep each search in its own folder and use `--page` to request later Flickr pages.
+
+## 🧩 Compatibility Notes
+
+This scraper uses Flickr's JSON `photos.search` API response directly. It does not call `flickrapi.walk()`, avoiding the older `getchildren()` compatibility error reported with `flickrapi==2.4.0` on Python 3.9 and newer.
+
+If Flickr returns a `500` or another API error, the script reports the Flickr error code and message. These errors usually come from Flickr or invalid credentials; retry the command after checking your API key and secret.
 
 ## 📜 Citation
 

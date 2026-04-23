@@ -11,8 +11,10 @@ def download_uri(uri, dir="./"):
     # Download
     dir = Path(dir)
     f = dir / Path(uri).name  # filename
+    response = requests.get(uri, timeout=10)
+    response.raise_for_status()
     with open(f, "wb") as file:
-        file.write(requests.get(uri, timeout=10).content)
+        file.write(response.content)
 
     # Rename (remove wildcard characters)
     src = f  # original name

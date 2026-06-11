@@ -63,7 +63,7 @@ key = "YOUR_API_KEY"
 secret = "YOUR_API_SECRET"
 ```
 
-3.  **Execute the Script**: Run the script from your terminal, specifying your search query, the number of images to fetch (`--n`), and the `--download` flag to save them locally. Downloaded images are saved by default to the `flickr_scraper/images/` directory, organized into subfolders based on the search query.
+3.  **Execute the Script**: Run the script from your terminal, specifying your search query, the number of images to fetch (`--n`), and the `--download` flag to save them locally. Downloaded images are saved by default to the `./images/` directory from your current working directory, organized into subfolders based on the search query.
 
     **Important**: Be mindful of Flickr's API rate limits and terms of service. Excessive requests may lead to temporary or permanent blocking. Refer to the official [Flickr API documentation](https://www.flickr.com/services/developer/api/) for detailed usage guidelines.
 
@@ -80,7 +80,7 @@ You should see output indicating the download progress:
 ...
 10/10 downloaded
 Done. (4.1s)
-All images saved to /Users/glennjocher/PycharmProjects/flickr_scraper/images/honeybees_on_flowers/
+All images saved to .../images/honeybees_on_flowers/
 ```
 
 The downloaded images will be available in the specified folder (e.g., `images/honeybees_on_flowers/`), ready for annotation, further processing, or direct use in training your models.
@@ -115,7 +115,7 @@ If the Flickr Scraper tool helps your research or work, please consider citing i
 
 Contributions are welcome! We value input from the community to fix bugs, add features, or improve documentation. Please see our [Contributing Guide](https://docs.ultralytics.com/help/contributing/) for details on how to get started. Don't forget to share your experiences and feedback by completing our [Survey](https://www.ultralytics.com/survey?utm_source=github&utm_medium=social&utm_campaign=Survey). Thank you 🙏 to all our contributors!
 
-[![Ultralytics open-source contributors](https://raw.githubusercontent.com/ultralytics/assets/main/im/image-contributors.png)](https://github.com/ultralytics/ultralytics/graphs/contributors)
+[![Ultralytics open-source contributors](https://raw.githubusercontent.com/ultralytics/assets/main/im/image-contributors.png)](https://github.com/ultralytics/flickr_scraper/graphs/contributors)
 
 ## ©️ License
 

@@ -12,17 +12,35 @@ from PIL import Image
 from tqdm import tqdm
 
 
-def scan(files, max_wh=1920, remove=False, multi_thread=True, tojpg=False, quality=95, workers=8):
+def scan(
+    files,
+    max_wh=1920,
+    remove=False,
+    multi_thread=True,
+    tojpg=False,
+    quality=95,
+    workers=8,
+):
     """Scans and processes images by resizing, converting to jpg, and removing duplicates or corrupt files.
 
     Args:
         files: list of image files
         max_wh: maximum image wh (larger images will be reduced in size)
         remove: delete corrupted/duplicate images
+        multi_thread: process images in parallel
         tojpg: replace current image with jpg for smaller size / faster loading
         quality: PIL JPG saving quality (0-100)
+        workers: number of worker threads when multi_thread is enabled
     """
-    img_formats = [".bmp", ".jpg", ".jpeg", ".png", ".tif", ".tiff", ".dng"]  # valid image formats from YOLOv5
+    img_formats = [
+        ".bmp",
+        ".jpg",
+        ".jpeg",
+        ".png",
+        ".tif",
+        ".tiff",
+        ".dng",
+    ]  # valid image formats from YOLOv5
 
     def scan_one_file(f):
         try:
@@ -124,5 +142,12 @@ if __name__ == "__main__":
     files = sorted(glob.iglob(str(dir / "**/*.*"), recursive=True))
     assert len(files), f"No files found in {dir}"
     print(f"Cleaning {len(files)} images in {dir} ...")
-    scan(files, max_wh=opt.maxwh, remove=opt.remove, tojpg=opt.tojpg, quality=opt.quality, workers=opt.workers)
+    scan(
+        files,
+        max_wh=opt.maxwh,
+        remove=opt.remove,
+        tojpg=opt.tojpg,
+        quality=opt.quality,
+        workers=opt.workers,
+    )
     # zip -r data.zip data

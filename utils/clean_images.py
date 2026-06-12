@@ -12,17 +12,35 @@ from PIL import Image
 from tqdm import tqdm
 
 
-def scan(files, max_wh=1920, remove=False, multi_thread=True, tojpg=False, quality=95, workers=8):
+def scan(
+    files,
+    max_wh=1920,
+    remove=False,
+    multi_thread=True,
+    tojpg=False,
+    quality=95,
+    workers=8,
+):
     """Scans and processes images by resizing, converting to jpg, and removing duplicates or corrupt files.
 
     Args:
         files: list of image files
         max_wh: maximum image wh (larger images will be reduced in size)
         remove: delete corrupted/duplicate images
+        multi_thread: process images in parallel
         tojpg: replace current image with jpg for smaller size / faster loading
         quality: PIL JPG saving quality (0-100)
+        workers: number of worker threads when multi_thread is enabled
     """
-    img_formats = [".bmp", ".jpg", ".jpeg", ".png", ".tif", ".tiff", ".dng"]  # valid image formats from YOLOv5
+    img_formats = [
+        ".bmp",
+        ".jpg",
+        ".jpeg",
+        ".png",
+        ".tif",
+        ".tiff",
+        ".dng",
+    ]  # valid image formats from YOLOv5
 
     def scan_one_file(f):
         try:
@@ -48,14 +66,18 @@ def scan(files, max_wh=1920, remove=False, multi_thread=True, tojpg=False, quali
 
             # Check image
             Image.open(f).verify()  # PIL verify
-            img = Image.fromarray(cv2.imread(f)[:, :, ::-1])  # cv2 to PIL for 4ch PNGs and 1ch grayscale to 3ch
+            img = Image.fromarray(
+                cv2.imread(f)[:, :, ::-1]
+            )  # cv2 to PIL for 4ch PNGs and 1ch grayscale to 3ch
             assert min(img.size) > 9, "image size <10 pixels"
 
             # Downsize
             r = max_wh / max(img.size)  # ratio (width, height = img.size)
             if r < 1:  # resize
                 print(f"Resizing {f}")
-                img = img.resize((round(x * r) for x in img.size), Image.ANTIALIAS)  # resize(width, height)
+                img = img.resize(
+                    (round(x * r) for x in img.size), Image.ANTIALIAS
+                )  # resize(width, height)
 
             # Resave
             if tojpg:  # convert to JPG
@@ -66,9 +88,13 @@ def scan(files, max_wh=1920, remove=False, multi_thread=True, tojpg=False, quali
 
             # Hash for duplicate detection
             img = np.array(img)  # to numpy
-            img = np.repeat(img[:, :, None], 3, axis=2) if len(img.shape) == 2 else img  # grayscale to rgb
+            img = (
+                np.repeat(img[:, :, None], 3, axis=2) if len(img.shape) == 2 else img
+            )  # grayscale to rgb
             img = img[:, :, :3] if img.shape[2] == 4 else img  # rgba to rgb (for pngs)
-            hash = list(img.reshape(-1, 3).mean(0)) + list(img.reshape(-1, 3).std(0))  # unique to each image
+            hash = list(img.reshape(-1, 3).mean(0)) + list(
+                img.reshape(-1, 3).std(0)
+            )  # unique to each image
             return [f, hash]
 
         except Exception as e:
@@ -113,10 +139,18 @@ if __name__ == "__main__":
     # python utils/clean_images.py --dir ../coco128/images --mawh 1024 --tojpg --workers 8
     parser = argparse.ArgumentParser()
     parser.add_argument("--dir", type=str, default="../images", help="image directory")
-    parser.add_argument("--maxwh", type=int, default=1920, help="resize to down to --max_wh if larger")
-    parser.add_argument("--remove", action="store_true", help="remove corrupted/duplicates")
-    parser.add_argument("--tojpg", action="store_true", help="convert images to PIL JPG")
-    parser.add_argument("--quality", type=int, default=95, help="JPG quality (0-100) if --tojpg")
+    parser.add_argument(
+        "--maxwh", type=int, default=1920, help="resize to down to --max_wh if larger"
+    )
+    parser.add_argument(
+        "--remove", action="store_true", help="remove corrupted/duplicates"
+    )
+    parser.add_argument(
+        "--tojpg", action="store_true", help="convert images to PIL JPG"
+    )
+    parser.add_argument(
+        "--quality", type=int, default=95, help="JPG quality (0-100) if --tojpg"
+    )
     parser.add_argument("--workers", type=int, default=8, help="multi-thread workers")
     opt = parser.parse_args()
 
@@ -124,5 +158,12 @@ if __name__ == "__main__":
     files = sorted(glob.iglob(str(dir / "**/*.*"), recursive=True))
     assert len(files), f"No files found in {dir}"
     print(f"Cleaning {len(files)} images in {dir} ...")
-    scan(files, max_wh=opt.maxwh, remove=opt.remove, tojpg=opt.tojpg, quality=opt.quality, workers=opt.workers)
+    scan(
+        files,
+        max_wh=opt.maxwh,
+        remove=opt.remove,
+        tojpg=opt.tojpg,
+        quality=opt.quality,
+        workers=opt.workers,
+    )
     # zip -r data.zip data

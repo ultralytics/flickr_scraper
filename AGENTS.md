@@ -55,7 +55,7 @@ python flickr_scraper.py --search 'honeybees on flowers' --n 10 --download
 
 ## Architecture
 
-Single-script scraper, not a package. `flickr_scraper.py` is the entry point: `resolve_credentials()` reads the API key/secret from `--key`/`--secret`, then the `FLICKR_API_KEY`/`FLICKR_API_SECRET` env vars, then the module-level `key`/`secret` constants; `get_urls()` calls the Flickr `photos.search` JSON API, keeps only photos exposing `url_o`, de-dupes URLs within a run, and (with `--download`) saves via `utils.general.download_uri` into `./images/<search>/`.
+Single-script scraper, not a package. `flickr_scraper.py` is the entry point: `resolve_credentials()` reads the API key/secret from `--key`/`--secret`, then the `FLICKR_API_KEY`/`FLICKR_API_SECRET` env vars, then the module-level `key`/`secret` constants; `get_urls()` calls the Flickr `photos.search` JSON API, keeps only photos exposing `url_o`, de-dupes URLs within a run, and (with `--download`) saves via `utils.general.download_uri` into `./images/<search>/`, with spaces in the search term replaced by underscores (e.g. `./images/honeybees_on_flowers/`).
 
 - `utils/general.py` — the shared helpers (`safe_filename_from_uri`, `download_uri`); this is the only module imported by both `flickr_scraper.py` and the tests.
 - `utils/` also holds standalone scripts run directly, never imported: `clean_images.py` (dedupe/resize a scraped folder; needs OpenCV, which is **not** in `requirements.txt`), `multithread_example.py`, and `flickr_scraper_noapi.py`.

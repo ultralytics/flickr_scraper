@@ -63,7 +63,7 @@ Single-script scraper, not a package. `flickr_scraper.py` is the entry point: `r
 
 ## Conventions
 
-- Every file starts with `# Ultralytics 🚀 AGPL-3.0 License - https://ultralytics.com/license` — Ultralytics Actions adds headers automatically; don't add or revert them manually.
+- Every Python file and workflow YAML starts with `# Ultralytics 🚀 AGPL-3.0 License - https://ultralytics.com/license` — Ultralytics Actions adds headers automatically; don't add or revert them manually.
 - Google-style docstrings; the Actions bot runs Ruff, docformatter, prettier (YAML/JSON/Markdown), and codespell on PRs, and its prettier output can differ from local — expect bot commits on the PR branch.
 - Keep tests self-contained: no live Flickr calls and no credentials; new tests should monkeypatch `FlickrAPI`/`requests` rather than reach the network.
 - No version string or release process — the repo ships as a script, not a PyPI package (README cites a Zenodo DOI for citation).

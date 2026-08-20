@@ -1,19 +1,19 @@
-<a href="https://www.ultralytics.com/"><img src="https://raw.githubusercontent.com/ultralytics/assets/main/logo/Ultralytics_Logotype_Original.svg" width="320" alt="Ultralytics logo"></a>
+<a href="https://www.ultralytics.com"><img src="https://raw.githubusercontent.com/ultralytics/assets/main/logo/Ultralytics_Logotype_Original.svg" width="320" alt="Ultralytics logo"></a>
 
 # 🚀 Introduction
 
-The Flickr Scraper is a [Python](https://www.python.org/) tool designed to help you gather images from [Flickr](https://www.flickr.com/) for creating custom datasets, particularly useful for [Ultralytics YOLO](https://docs.ultralytics.com/models/yolo11/) model training. Based on your search criteria, this tool simplifies the process of collecting relevant images for various [computer vision tasks](https://docs.ultralytics.com/tasks/), streamlining your [dataset preparation](https://docs.ultralytics.com/guides/data-collection-and-annotation/) workflow. Learn more about datasets in our blog post on the [best computer vision datasets](https://www.ultralytics.com/blog/exploring-the-best-computer-vision-datasets-in-2025).
+The Flickr Scraper is a [Python](https://www.python.org/) tool designed to help you gather images from [Flickr](https://www.flickr.com/) for creating custom datasets, particularly useful for [Ultralytics YOLO](https://docs.ultralytics.com/models/yolo11) model training. Based on your search criteria, this tool simplifies the process of collecting relevant images for various [computer vision tasks](https://docs.ultralytics.com/tasks), streamlining your [dataset preparation](https://docs.ultralytics.com/guides/data-collection-and-annotation) workflow. Learn more about datasets in our blog post on the [best computer vision datasets](https://www.ultralytics.com/blog/exploring-the-best-computer-vision-datasets-in-2025).
 
 [![Ultralytics Actions](https://github.com/ultralytics/flickr_scraper/actions/workflows/format.yml/badge.svg)](https://github.com/ultralytics/flickr_scraper/actions/workflows/format.yml)
 [![Ultralytics Discord](https://img.shields.io/discord/1089800235347353640?logo=discord&logoColor=white&label=Discord&color=blue)](https://discord.com/invite/ultralytics)
-[![Ultralytics Forums](https://img.shields.io/discourse/users?server=https%3A%2F%2Fcommunity.ultralytics.com&logo=discourse&label=Forums&color=blue)](https://community.ultralytics.com/)
+[![Ultralytics Forums](https://img.shields.io/discourse/users?server=https%3A%2F%2Fcommunity.ultralytics.com&logo=discourse&label=Forums&color=blue)](https://community.ultralytics.com)
 [![Ultralytics Reddit](https://img.shields.io/reddit/subreddit-subscribers/ultralytics?style=flat&logo=reddit&logoColor=white&label=Reddit&color=blue)](https://reddit.com/r/ultralytics)
 
 ## 🌟 Key Features
 
 - **Keyword Search**: Find images on Flickr using specific keywords relevant to your project.
 - **Direct Download**: Easily download images to assemble your [computer vision](https://www.ultralytics.com/glossary/computer-vision-cv) [dataset](https://www.ultralytics.com/glossary/benchmark-dataset).
-- **Streamlined Data Collection**: Simplify the process of gathering training data for [model training](https://docs.ultralytics.com/modes/train/) with YOLO models.
+- **Streamlined Data Collection**: Simplify the process of gathering training data for [model training](https://docs.ultralytics.com/modes/train) with YOLO models.
 
 ## 🔧 Requirements
 
@@ -113,7 +113,7 @@ If the Flickr Scraper tool helps your research or work, please consider citing i
 
 ## 🤝 Contributing
 
-Contributions are welcome! We value input from the community to fix bugs, add features, or improve documentation. Please see our [Contributing Guide](https://docs.ultralytics.com/help/contributing/) for details on how to get started. Don't forget to share your experiences and feedback by completing our [Survey](https://www.ultralytics.com/survey?utm_source=github&utm_medium=social&utm_campaign=Survey). Thank you 🙏 to all our contributors!
+Contributions are welcome! We value input from the community to fix bugs, add features, or improve documentation. Please see our [Contributing Guide](https://docs.ultralytics.com/help/contributing) for details on how to get started. Don't forget to share your experiences and feedback by completing our [Survey](https://www.ultralytics.com/survey?utm_source=github&utm_medium=social&utm_campaign=Survey). Thank you 🙏 to all our contributors!
 
 [![Ultralytics open-source contributors](https://raw.githubusercontent.com/ultralytics/assets/main/im/image-contributors.png)](https://github.com/ultralytics/flickr_scraper/graphs/contributors)
 
@@ -121,12 +121,12 @@ Contributions are welcome! We value input from the community to fix bugs, add fe
 
 Ultralytics provides two licensing options for this project:
 
-- **AGPL-3.0 License**: An [OSI-approved open-source license](https://opensource.org/license/agpl-v3), ideal for students and enthusiasts who wish to contribute and share improvements publicly. See the [LICENSE](https://github.com/ultralytics/flickr_scraper/blob/main/LICENSE) file for details.
+- **AGPL-3.0 License**: An [OSI-approved open-source license](https://opensource.org/license/agpl-3.0), ideal for students and enthusiasts who wish to contribute and share improvements publicly. See the [LICENSE](https://github.com/ultralytics/flickr_scraper/blob/main/LICENSE) file for details.
 - **Enterprise License**: Designed for commercial applications, this license allows for the integration of Ultralytics software and AI models into commercial products and services without the open-source requirements of AGPL-3.0. If your use case involves commercial deployment, please contact us through [Ultralytics Licensing](https://www.ultralytics.com/license).
 
 ## 📬 Contact
 
-For bug reports, feature suggestions, or contributions, please visit [GitHub Issues](https://github.com/ultralytics/flickr_scraper/issues). For broader questions and discussions about Ultralytics projects, join our active community on [Discord](https://discord.com/invite/ultralytics)! Explore the full range of our resources at [Ultralytics Docs](https://docs.ultralytics.com/).
+For bug reports, feature suggestions, or contributions, please visit [GitHub Issues](https://github.com/ultralytics/flickr_scraper/issues). For broader questions and discussions about Ultralytics projects, join our active community on [Discord](https://discord.com/invite/ultralytics)! Explore the full range of our resources at [Ultralytics Docs](https://docs.ultralytics.com).
 
 <br>
 <div align="center">

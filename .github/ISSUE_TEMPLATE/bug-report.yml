@@ -15,7 +15,7 @@ body:
     attributes:
       label: Search before asking
       description: >
-        Please search the [Ultralytics Docs](https://docs.ultralytics.com/guides/data-collection-and-annotation/) and [issues](https://github.com/ultralytics/flickr_scraper/issues) to see if a similar bug report already exists.
+        Please search the [Ultralytics Docs](https://docs.ultralytics.com/guides/data-collection-and-annotation) and [issues](https://github.com/ultralytics/flickr_scraper/issues) to see if a similar bug report already exists.
       options:
         - label: >
             I have searched the Ultralytics [issues](https://github.com/ultralytics/flickr_scraper/issues) and found no similar bug report.
@@ -72,7 +72,7 @@ body:
     attributes:
       label: Minimal Reproducible Example
       description: >
-        When asking a question, people will be better able to provide help if you provide code that they can easily understand and use to **reproduce** the problem. This is referred to by community members as creating a [minimal reproducible example](https://docs.ultralytics.com/help/minimum-reproducible-example/).
+        When asking a question, people will be better able to provide help if you provide code that they can easily understand and use to **reproduce** the problem. This is referred to by community members as creating a [minimal reproducible example](https://docs.ultralytics.com/help/minimum-reproducible-example).
       placeholder: |
         ```bash
         python flickr_scraper.py --search "honeybees on flowers" --n 10 --download  # Command to reproduce your issue here
